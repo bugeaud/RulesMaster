@@ -28,7 +28,7 @@ public class BasicHTMLValidatorTest {
     //
     @Test
     public void coreHTMLValidator() throws InvalidHTML{
-       HTMLValidator.validateHtml("<html><body><p>helloworld</p></body></html>");
+       HTMLValidator.validateHtml("<!DOCTYPE html><html><head><title>Hello!</title></head><body><p>Hello,world!</p></body></html>");
     }
 
     @BeforeClass
