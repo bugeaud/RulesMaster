@@ -48,5 +48,10 @@ public class InvalidHTML extends Exception implements ErrorHandler{
     public void fatalError(SAXParseException exception) throws SAXException {
         fatalErrors.add(exception);
     }
+
+    @Override
+    public String toString() {
+        return "InvalidHTML(fatalErrors="+fatalErrors+"errors="+errors+",warnings="+warnings+"):"+super.toString();
+    }
     
 }

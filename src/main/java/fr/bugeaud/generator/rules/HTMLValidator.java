@@ -7,9 +7,12 @@ package fr.bugeaud.generator.rules;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import nu.validator.messages.MessageEmitter;
 import nu.validator.messages.MessageEmitterAdapter;
 import nu.validator.messages.TextMessageEmitter;
@@ -18,6 +21,7 @@ import nu.validator.source.SourceCode;
 import nu.validator.validation.SimpleDocumentValidator;
 import nu.validator.xml.SystemErrErrorHandler;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -50,8 +54,10 @@ public class HTMLValidator {
             validator.setUpMainSchema( "http://s.validator.nu/html5-rdfalite.rnc", new SystemErrErrorHandler());
             validator.setUpValidatorAndParsers( errorHandler, true, false );
             validator.checkHtmlInputSource( new InputSource( in ));
-        }catch(Exception ex){
-            throw new InvalidHTML("There was a serious error while trying to parse the given description",ex);
+        }catch(IOException|SAXException ex){
+            throw new InvalidHTML("There was a serious error while trying to parse the given description :"+ex.getMessage(),ex);
+        } catch (Exception ex) {
+            throw new InvalidHTML("Unexpected situation while setting up the document validator : "+ex.getMessage(),ex);
         }
         // If there was some error log it and raise it as invalid HTML
         /*if(errorHandler.getErrors()>0){
