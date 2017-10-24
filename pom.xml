@@ -60,6 +60,32 @@
             </exclusion>
         </exclusions>
     </dependency>
+    
+        <dependency>
+            <groupId>fr.bugeaud.tools</groupId>
+            <artifactId>sonar-rules-client</artifactId>
+            <version>0.1</version>
+        </dependency>
+    
+    <dependency>
+  <groupId>de.odysseus.juel</groupId>
+  <artifactId>juel-api</artifactId>
+  <version>2.2.7</version>
+</dependency>
+
+<dependency>
+  <groupId>de.odysseus.juel</groupId>
+  <artifactId>juel-impl</artifactId>
+  <version>2.2.7</version>
+</dependency>
+
+<dependency>
+  <groupId>de.odysseus.juel</groupId>
+  <artifactId>juel-spi</artifactId>
+  <version>2.2.7</version>
+</dependency>
+    
+    
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>

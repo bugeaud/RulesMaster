@@ -23,9 +23,10 @@ public class BasicHTMLValidatorTest {
     public BasicHTMLValidatorTest() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
+/**
+ * Ensure that the HTML Validator component is working on basic valid HTML5
+ * @throws InvalidHTML if HTML5 validation fails
+ */
     @Test
     public void coreHTMLValidator() throws InvalidHTML{
        HTMLValidator.validateHtml("<!DOCTYPE html><html><head><title>Hello!</title></head><body><p>Hello,world!</p></body></html>");

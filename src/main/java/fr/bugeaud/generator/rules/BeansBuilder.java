@@ -97,17 +97,24 @@ public class BeansBuilder {
         return headers;
     }
 
-    
+    /**
+     * Return a value from the cell
+     * @param cell the targetted cell
+     * @return the value contained in the cell, if a formula, then the latest computed value will be returned
+     */
     protected static Object getCellValue(XSSFCell cell) {
-        switch (cell.getCellType()) {
+        int cellValueType = cell.getCellType();
+        if(cellValueType==CELL_TYPE_FORMULA){
+            // Alright, this is a formulae let's bring the latest value out of it
+            cellValueType=cell.getCachedFormulaResultType();
+        }
+        switch (cellValueType) {
             case CELL_TYPE_BLANK:
                 return "";
             case CELL_TYPE_BOOLEAN:
                 return cell.getBooleanCellValue();
             case CELL_TYPE_ERROR:
                 return cell.getErrorCellValue();
-            case CELL_TYPE_FORMULA:
-                return cell.getCellFormula();
             case CELL_TYPE_NUMERIC:
                 if (DateUtil.isCellDateFormatted(cell)) {                    
                     return cell.getDateCellValue();
@@ -116,10 +123,9 @@ public class BeansBuilder {
             case CELL_TYPE_STRING:
                 return cell.getRichStringCellValue().toString();
             default:
-                return "Unknown Cell Type: " + cell.getCellType();
+                return "ERROR:Unknown Cell Type: " + cell.getCellType();
         }
     }
-    
     
     protected final static <T> T buildDataInstance(XSSFRow row, Class<T> theClass, List<String> headers, Map<String, PropertyDescriptor> propertiesCache, Map<String, String> aliases)
             throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{

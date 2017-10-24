@@ -201,7 +201,7 @@ public class Test {
         System.out.println(elements.toString());
     }
     
-    public static void main6(String[] args) throws Exception{
+    /*public static void main6(String[] args) throws Exception{
         try(FileInputStream inputStream = new FileInputStream("C:\\Users\\J\\Documents\\econocom\\Projets\\Dassault\\UsineLogicielle\\TestRegles.xlsm")){
             XSSFWorkbook workBook = new XSSFWorkbook(inputStream);
             XSSFSheet sheet = workBook.getSheet(RULE_SHEET_NAME);
@@ -255,7 +255,7 @@ public class Test {
             //wordMLPackage.save(new java.io.File(System.getProperty("user.dir") + "/test.docx"));
             
         }
-    }
+    }*/
 
     public static CodeFormater createCodeFormater()throws ScriptException{
         return createCodeFormater("CppLexer");
@@ -396,7 +396,10 @@ public static final String NORMAL = "Normal";
                 
         XWPFParagraph block = doc.createParagraph();
         block.setStyle(NORMAL);
-        block.createRun().setText(rule.getDescription());
+        block.createRun().setText(rule.getHtmlDesc());
+                
+        /*
+        @todo Improve the rule generation
         
         XWPFParagraph validExampleTitle = doc.createParagraph();
         validExampleTitle.setStyle(HEADING_2);
@@ -412,7 +415,7 @@ public static final String NORMAL = "Normal";
         
         XWPFParagraph invalidExample = doc.createParagraph();
         invalidExample.setStyle(CODE);
-        invalidExample.createRun().setText(rule.getInvalidExample());
+        invalidExample.createRun().setText(rule.getInvalidExample());*/
         
     }
     
@@ -421,16 +424,17 @@ public static final String NORMAL = "Normal";
         
         final Rule r1 = new Rule();
         r1.setName("Règle 1");
-        r1.setDescription("Avoir un main standard");
-        r1.setInvalidExample("#include \"stdio.h\"\nint main(){}\n");
-        r1.setValidExample("#include \"stdio.h\"\nint main(int argv, char *argc[]){}\n");
+        r1.setHtmlDesc("Avoir un main standard.\n"
+                + "Correct : <code>#include \"stdio.h\"\nint main(){}\n</code>"
+                + "Incorrect:<code>#include \"stdio.h\"\nint main(int argv, char *argc[]){}\n</code>");
         rules.add(r1);
         
         final Rule r2 = new Rule();
         r2.setName("Règle 2");
-        r2.setDescription("Utiliser printf");
-        r2.setInvalidExample("#include \"stdio.h\"\nint main(){}\n");
-        r2.setValidExample("#include \"stdio.h\"\nint main(int argv, char *argc[]){\nprintf(\"HelloWorld\")}\n");
+        r2.setHtmlDesc("Utiliser printf"
+                + "Correct : <code>#include \"stdio.h\"\nint main(){}\n</code>"
+                + "Incorrect:<code>#include \"stdio.h\"\nint main(int argv, char *argc[]){\nprintf(\"HelloWorld\")}\n</code>"
+        );
         rules.add(r2);
         
         return rules;

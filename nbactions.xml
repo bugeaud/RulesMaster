@@ -10,7 +10,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xmx2g -classpath %classpath fr.bugeaud.generator.rules.DocumentGenerator -v -in C:\tmp\test-gen\sample_cpp_rules_draft_10-langcpp-only.xlsx -sheet cpp_rules_list -out C:\tmp\test-gen\CPP-Rules-010.docx -lexer CppLexer -A"Default Severity"=Severity -A"DSI022773"=References -A"DGT96762"=References -A"MISRA C++ 2008"=References -A"MISRA C 2012"=References -A"CERT C++"=References -A"CERT C"=References -A"Rule"=Name -G</exec.args>
+                <exec.args>-Xmx2g -classpath %classpath fr.bugeaud.generator.rules.DocumentGenerator -sheet Rules -in C:\tmp\tmp-dass\DassaultAviation-Rules-CPP-030.xlsx -lexer CppLexer -out C:\tmp\tmp-dass\DassaultAviation-Rules-CPP-030-test1.docx</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -24,7 +24,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Xmx2g -classpath %classpath fr.bugeaud.generator.rules.DocumentGenerator -v -in C:\tmp\test-gen\sample_cpp_rules_draft_10-langcpp-only.xlsx -sheet cpp_rules_list -out C:\tmp\test-gen\CPP-Rules-010.docx -lexer CppLexer -A"Default Severity"=Severity -A"DSI022773"=References -A"DGT96762"=References -A"MISRA C++ 2008"=References -A"MISRA C 2012"=References -A"CERT C++"=References -A"CERT C"=References -A"Rule"=Name -G</exec.args>
+                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Xmx2g -classpath %classpath fr.bugeaud.generator.rules.DocumentGenerator -sheet Rules -in C:\tmp\tmp-dass\DassaultAviation-Rules-CPP-030.xlsx -lexer CppLexer -out C:\tmp\tmp-dass\DassaultAviation-Rules-CPP-030-test1.docx</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
             </properties>
@@ -39,7 +39,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xmx2g -classpath %classpath fr.bugeaud.generator.rules.DocumentGenerator -v -in C:\tmp\test-gen\sample_cpp_rules_draft_10-langcpp-only.xlsx -sheet cpp_rules_list -out C:\tmp\test-gen\CPP-Rules-010.docx -lexer CppLexer -A"Default Severity"=Severity -A"DSI022773"=References -A"DGT96762"=References -A"MISRA C++ 2008"=References -A"MISRA C 2012"=References -A"CERT C++"=References -A"CERT C"=References -A"Rule"=Name -G</exec.args>
+                <exec.args>-Xmx2g -classpath %classpath fr.bugeaud.generator.rules.DocumentGenerator -sheet Rules -in C:\tmp\tmp-dass\DassaultAviation-Rules-CPP-030.xlsx -lexer CppLexer -out C:\tmp\tmp-dass\DassaultAviation-Rules-CPP-030-test1.docx</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>

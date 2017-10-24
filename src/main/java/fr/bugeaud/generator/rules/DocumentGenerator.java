@@ -5,7 +5,6 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +45,9 @@ public class DocumentGenerator {
     
     @Parameter(names = "-G", description = "Group using the category field into subtrees")
     private boolean group = false;
+    
+    @Parameter(names = "-filter", description = "A Java filter expression Group using the category field into subtrees")
+    String filter;
     
     @Parameter(names = "-v", description = "Verbose, print more log (info, errors ...)")
     private boolean verbose = false;
@@ -121,8 +123,8 @@ public class DocumentGenerator {
                     continue;
                 }*/
                 
-                final String validExample = rule.getValidExample();
-                final String invalidExample = rule.getInvalidExample();
+                /*final String validExample = rule.getValidExample();
+                final String invalidExample = rule.getInvalidExample();*/
                 
                 // Create the title
                 doc.addStyledParagraphOfText("Heading"+level, String.format("%s - %s", rule.getId(),rule.getName()));
@@ -132,25 +134,25 @@ public class DocumentGenerator {
                 
                 // Create the description, and add inline to bring color instead of the basic
                 // doc.addParagraphOfText(...);
-                if(rule.getDescription() !=null){
+                if(rule.getHtmlDesc()!=null){
                     if (shouldValidate()){
                         try{
-                            HTMLValidator.validateHtml(rule.getDescription());
+                            HTMLValidator.validateHtml(rule.getHtmlDesc());
                         }catch(InvalidHTML ex){
                             Logger.getLogger(DocumentGenerator.class.getName()).log(Level.WARNING, String.format("The description (ID=%s) has some HTML validity issues",rule.getId()), ex);
-                            Logger.getLogger(DocumentGenerator.class.getName()).log(Level.INFO, String.format("The description (ID=%s) has some HTML validity issues : {\"%s\"}",rule.getId(),rule.getDescription()), ex);
+                            Logger.getLogger(DocumentGenerator.class.getName()).log(Level.INFO, String.format("The description (ID=%s) has some HTML validity issues : {\"%s\"}",rule.getId(),rule.getHtmlDesc()), ex);
                         }
                     }
                     try {  
-                        doc.addAltChunk(AltChunkType.Html.Html, new HTMLRewriter(rule.getDescription(), formater).result().getBytes());
+                        doc.addAltChunk(AltChunkType.Html.Html, new HTMLRewriter(rule.getHtmlDesc(), formater).result().getBytes());
                     } catch (UnableToTransform ex) {
                         // This is a serious error, but we will not exit at this point as we want to check if there are further issues pending
                         Logger.getLogger(DocumentGenerator.class.getName()).log(Level.SEVERE, String.format("The rule's description (ID=%s) was not transformed",rule.getId()), ex);
-                        Logger.getLogger(DocumentGenerator.class.getName()).log(Level.INFO, String.format("The rule's description (ID=%s) faulty content is {\"%s\"}",rule.getId(),rule.getDescription()), ex);                        
+                        Logger.getLogger(DocumentGenerator.class.getName()).log(Level.INFO, String.format("The rule's description (ID=%s) faulty content is {\"%s\"}",rule.getId(),rule.getHtmlDesc()), ex);                        
                     }
                 }                  
                 
-                if(validExample!=null && !"".equals(validExample.trim())){
+                /*if(validExample!=null && !"".equals(validExample.trim())){
                     // Create the valid example block
                     final String validExampleStyled = formater.highlightCode(rule.getValidExample());
                     doc.addStyledParagraphOfText("Caption", "Exemple");
@@ -162,7 +164,7 @@ public class DocumentGenerator {
                     final String invalidExampleStyled = formater.highlightCode(rule.getInvalidExample());
                     doc.addStyledParagraphOfText("Caption", "Contre-Exemple");
                     doc.addAltChunk(AltChunkType.Html, invalidExampleStyled.getBytes());
-                }
+                }*/
                 
             }
 
